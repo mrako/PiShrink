@@ -1,8 +1,9 @@
+# PiShrink
 
-# PiShrink #
 PiShrink is a bash script that automatically shrink a pi image that will then resize to the max size of the SD card on boot. This will make putting the image back onto the SD card faster and the shrunk images will compress better.
 
-## Usage ##
+## Usage
+
 ```
 sudo pishrink.sh [-sdrpzh] imagefile.img [newimagefile.img]
   -s: Skip autoexpand
@@ -19,22 +20,15 @@ If you specify the `newimagefile.img` parameter, the script will make a copy of 
 * `-r` will attempt to repair the filesystem if regular repairs fail
 * `-z` will Gzip compress the image after shrinking. The `.gz` extension will be added to the filename.
 
+## Running with Docker
 
-## Prerequisites ##
-If you are trying to shrink a [NOOBS](https://github.com/raspberrypi/noobs) image it will likely fail. This is due to [NOOBS partitioning](https://github.com/raspberrypi/noobs/wiki/NOOBS-partitioning-explained) being significantly different than Raspbian's. Hopefully PiShrink will be able to support NOOBS in the near future.
-
-If using Ubuntu, you will likely see an error about `e2fsck` being out of date and `metadata_csum`. The simplest fix for this is to use Ubuntu 16.10 and up, as it will save you a lot of hassle in the long run.
-
-## Installation ##
-```bash
-wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
-chmod +x pishrink.sh
-sudo mv pishrink.sh /usr/local/bin
-```
+    docker build -t pishrink .
+    docker run --privileged -v $(pwd):/root pishrink [-sdrpzh] imagefile.img [newimagefile.img]
 
 ## Example ##
+
 ```bash
-[user@localhost PiShrink]$ sudo pishrink.sh pi.img
+[user@localhost PiShrink]$ docker run -v $(pwd):/root pishrink pi.img
 e2fsck 1.42.9 (28-Dec-2013)
 Pass 1: Checking inodes, blocks, and sizes
 Pass 2: Checking directory structure
@@ -56,7 +50,8 @@ The filesystem on /dev/loop1 is now 773603 blocks long.
 Shrunk pi.img from 30G to 3.1G
 ```
 
-## Contributing ##
+## Contributing
+
 If you find a bug please create an issue for it. If you would like a new feature added, you can create an issue for it but I can't promise that I will get to it.
 
 Pull requests for new features and bug fixes are more than welcome!
