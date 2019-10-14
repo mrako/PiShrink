@@ -20,7 +20,7 @@ If you specify the `newimagefile.img` parameter, the script will make a copy of 
 * `-r` will attempt to repair the filesystem if regular repairs fail
 * `-z` will Gzip compress the image after shrinking. The `.gz` extension will be added to the filename.
 
-## Running with Docker
+## Usage with Docker
 
     docker build -t pishrink .
     docker run --privileged -v $(pwd):/root pishrink [-sdrpzh] imagefile.img [newimagefile.img]
@@ -28,7 +28,7 @@ If you specify the `newimagefile.img` parameter, the script will make a copy of 
 ## Example ##
 
 ```bash
-[user@localhost PiShrink]$ docker run -v $(pwd):/root pishrink pi.img
+[user@localhost PiShrink]$ docker run --privileged -v $(pwd):/root pishrink pi.img
 e2fsck 1.42.9 (28-Dec-2013)
 Pass 1: Checking inodes, blocks, and sizes
 Pass 2: Checking directory structure
