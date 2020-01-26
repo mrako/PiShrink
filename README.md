@@ -4,7 +4,7 @@ PiShrink is a bash script that automatically shrink a pi image that will then re
 
 ## Usage
 
-```
+```bash
 sudo pishrink.sh [-sdrzh] imagefile.img [newimagefile.img]
   -s: Skip autoexpand
   -d: Debug mode on
@@ -22,13 +22,29 @@ If you specify the `newimagefile.img` parameter, the script will make a copy of 
 
 ## Usage with Docker
 
-    docker build -t pishrink .
-    docker run --privileged -v $(pwd):/root pishrink [-sdrpzh] imagefile.img [newimagefile.img]
+```bash
+docker build -t pishrink .
+docker run --privileged -v $(pwd):/root pishrink [-sdrpzh] imagefile.img [newimagefile.img]
+```
+
+## Prerequisites
+
+If you are trying to shrink a [NOOBS](https://github.com/raspberrypi/noobs) image it will likely fail. This is due to [NOOBS partitioning](https://github.com/raspberrypi/noobs/wiki/NOOBS-partitioning-explained) being significantly different than Raspbian's. Hopefully PiShrink will be able to support NOOBS in the near future.
+
+If using Ubuntu, you will likely see an error about `e2fsck` being out of date and `metadata_csum`. The simplest fix for this is to use Ubuntu 16.10 and up, as it will save you a lot of hassle in the long run.
+
+## Installation
+
+```bash
+wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
+chmod +x pishrink.sh
+sudo mv pishrink.sh /usr/local/bin
+```
 
 ## Example ##
 
 ```bash
-[user@localhost PiShrink]$ docker run --privileged -v $(pwd):/root pishrink pi.img
+[user@localhost PiShrink]$ sudo pishrink.sh pi.img
 e2fsck 1.42.9 (28-Dec-2013)
 Pass 1: Checking inodes, blocks, and sizes
 Pass 2: Checking directory structure
